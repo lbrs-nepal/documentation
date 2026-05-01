@@ -1,50 +1,51 @@
-# LBRS Media Service — Global Asset Infrastructure
+# LBRS — Local Business Registry System (Nepal)
 
-The **LBRS Media Service** is the centralized hub for managing, processing, and delivering media assets across the entire Local Business Registry System (LBRS) ecosystem. It provides a secure, high-performance gateway for images, videos, and legal documents.
-
----
-
-## 🚀 Key Capabilities
-
-*   **Intelligent Ingestion**: Automatic validation of file signatures (Magic Numbers) to prevent malicious uploads.
-*   **Asynchronous Processing**: High-quality image resizing (Lanczos3) and video frame extraction using FFmpeg.
-*   **Privacy First**: Automatic EXIF metadata stripping and support for **Private/Protected** assets.
-*   **Unified Gateway**: A single, immutable delivery point at `https://media.npframe.com`.
-*   **Enterprise Retention**: Built-in 45-day safety window for all deleted content.
+Welcome to the central documentation repository for the **LBRS Ecosystem**. LBRS is a next-generation, high-availability platform designed to digitize local government business registration, fiscal tracking, and media asset management across Nepal.
 
 ---
 
-## 🛠️ Technology Stack
+## 🏛️ Project Pillars
 
-*   **Backend**: Golang (Fiber)
-*   **Storage**: MinIO (S3-Compatible Object Storage)
-*   **Metadata**: PostgreSQL
-*   **Engine**: FFmpeg & FFprobe
+The ecosystem is built on **Four Core Pillars** that ensure scalability, security, and architectural integrity:
+
+1.  **The Oracle (Architectural Brain)**: The Single Source of Truth (SSoT) for the entire system.
+2.  **Microservice Architecture**: Specialized nodes (Auth, Core, Media, Location) running on a unified port-based hierarchy.
+3.  **Data Governance**: Centralized PostgreSQL schemas with strict audit trails.
+4.  **Premium UX**: A glassmorphic, real-time administrative console built with Next.js.
 
 ---
 
 ## 🌐 The LBRS Project Ecosystem
 
-The Media Service is a core pillar of the LBRS architecture, designed to integrate seamlessly with our other specialized modules:
+The system is partitioned into specialized modules, each governed by the **Oracle Registry**.
 
-| Module | Description | Documentation |
-| :--- | :--- | :--- |
-| **`core`** | Central business logic & fiscal year engine. | [**View Info**](./core/README.md) |
-| **`auth`** | Global IAM & RBAC provider. | [**View Info**](./auth/README.md) |
-| **`db`** | Centralized schemas & data governance. | [**View Info**](./db/README.md) |
-| **`location`**| Geographic governance & Palika mapping. | [**View Info**](./location/README.md) |
-| **`desktop`** | Admin console & React dashboard. | [**View Info**](./desktop/README.md) |
-| **`media`** | Asset processing & delivery infrastructure. | [**View Info**](./media/README.md) |
+| Module | Purpose | Status | Documentation |
+| :--- | :--- | :--- | :--- |
+| **`oracle`** | **Single Source of Truth & Governance** | ✅ **Active** | [**Governance Guide**](./oracle/README.md) |
+| **`auth`** | Global IAM, RBAC & Multi-Table Security | ✅ **Active** | [**Auth Docs**](./auth/README.md) |
+| **`core`** | Business Logic, Fiscal Engine & Approvals | ✅ **Active** | [**Core Docs**](./core/README.md) |
+| **`db`** | Centralized Schema Management & Migrations | ✅ **Active** | [**Database Docs**](./db/README.md) |
+| **`location`**| Geographical Governance & Palika Mapping | ✅ **Active** | [**Location Docs**](./location/README.md) |
+| **`media`** | Intelligent Asset Processing & Delivery | ✅ **Active** | [**Media Docs**](./media/README.md) |
+| **`desktop`** | Admin Console & Real-time Dashboard | ✅ **Active** | [**Desktop Docs**](./desktop/README.md) |
 
 ---
 
-## 📖 Documentation Reference
+## 🏗️ Architectural Governance
 
-For deep technical details, please refer to the specific documentation sub-modules:
+LBRS utilizes the **"Living Architecture"** protocol. Every critical file in the system is linked to the Oracle registry via the `@LBRS-Mapping-Audit` protocol.
 
-1.  **[Architecture](https://github.com/lbrs-nepal/media/tree/main/docs/architecture)**: System design and module logic.
-2.  **[API Specification](https://github.com/lbrs-nepal/media/tree/main/docs/api)**: Integration guides and endpoint references.
-3.  **[Database Schema](https://github.com/lbrs-nepal/media/tree/main/docs/database)**: Metadata structure and retention policies.
+- **Infrastructure Contract**: Managed via `oracle/config/services.yml`.
+- **Behavioral Mappings**: Managed via `oracle/schemas/`.
+- **Integrity Enforcement**: Any change to code MUST be mirrored in Oracle.
+
+---
+
+## 🚀 Quick Links
+
+- **[Architecture Blueprint](./oracle/README.md)**: Deep dive into the system's brain.
+- **[Deployment Registry](../oracle/config/services.yml)**: Official port and URL mappings.
+- **[Schema Index](../db/schema/schemas/schemas.sql)**: Database definitions.
 
 ---
 © 2026 LBRS Nepal. All rights reserved.
