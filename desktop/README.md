@@ -1,27 +1,37 @@
-# LBRS Desktop — Administrative Console
+# LBRS Desktop — Administrative Console & Dashboard
 
-The Desktop client is the primary interface for Municipality Administrators and Registry Operators to manage local business registrations.
-
-## 🏗️ How it's shaping up:
-*   **Modern Web UI**: Built with React/Next.js for a fast, responsive experience. We utilize a highly modular component architecture where every UI element is reusable across different Palika dashboards.
-*   **Secondary Topbar Pattern**: Implementing a standardized navigation system where sub-page settings (like IAM, Classification, Members) are managed via a tabbed secondary bar instead of complex internal component states.
-*   **Shared Design System**: Enforcing a premium visual aesthetic with dark mode support, glassmorphism elements, and smooth micro-animations to ensure a professional government-grade experience.
-
-## 🌟 Key Features:
-*   **Complex Form Handling**: Multi-step registration forms with real-time field validation, Nepali Unicode support, and instant document upload integration.
-*   **Administrative Overviews**: High-level data visualization for Palika administrators, showing registration trends, upcoming renewals, and revenue summaries.
-*   **Permission-Based UI**: The interface dynamically hides or shows components based on the user's RBAC role (e.g., Operators cannot see the "Classification Policy" settings).
-
-## 🚀 Current Focus:
-Refining Legal Dossier registration and migrating localized IAM components to a route-based directory structure with the Secondary Topbar.
+The **Desktop Client** is the premium administrative interface for the LBRS ecosystem. Built with Next.js 14+, it provides Municipality Administrators and Registry Operators with a real-time, glassmorphic dashboard to manage the business lifecycle.
 
 ---
 
-## 📈 Feature & Progress Log
-| Date | Milestone | Status |
-| :--- | :--- | :--- |
-| 2026-04-10 | Base Administrative Dashboard UI finalized. | ✅ COMPLETED |
-| 2026-04-18 | Secondary Topbar navigation pattern implemented. | ✅ COMPLETED |
-| 2026-04-25 | Dynamic RBAC UI visibility logic integrated. | ✅ COMPLETED |
-| 2026-04-29 | Classification Policy settings centralized. | ✅ COMPLETED |
-| 2026-05-01 | Legal Dossier registration refactoring initiated. | ⏳ IN PROGRESS |
+## 📂 Directory & Setup
+The frontend is built for extreme modularity and architectural clarity.
+
+- **`/src/app`**: The Next.js App Router structure, divided into:
+  - `(public)`: Guest-facing routes (Login, Console-Register).
+  - `(protected)`: Restricted routes for authorized personnel (Dashboard, Settings).
+- **`/src/lib`**: The "Frontend Logic" hub:
+  - `auth`: Identity and session management.
+  - `routes`: Action-based service integrators.
+  - `themes`: Centralized design system (tokens, glassmorphism, animations).
+- **`/src/components`**: A library of reusable UI atoms, molecules, and organisms.
+
+---
+
+## ⚙️ How it Works
+1.  **State Management**: Uses React state and Next.js navigation hooks to provide a fast, "Single Page App" feel with the power of Server-Side Rendering (SSR).
+2.  **Service Integration**: Communicates with the Auth, Core, and Media services via a standardized fetcher pattern, injecting JWT tokens automatically for protected routes.
+3.  **Real-Time Feedback**: Includes live elements like monotonic clocks and system status indicators to provide a sense of platform vitality.
+4.  **RBAC Visibility**: Dynamically renders navigation and action buttons based on the user's role extracted from the session JWT.
+
+---
+
+## 🏛️ Oracle Governance
+As the user-facing layer, the Desktop module is the final link in the Oracle chain:
+
+- **Audit Tagging**: The `@LBRS-Mapping-Audit` tag is applied to critical pages and route handlers.
+- **Traceability**: Every data field in the registration form is linked back to an Oracle mapping (e.g., `company.details`) to ensure the UI matches the database schema.
+- **Protocol Adherence**: The `Protocol: [oracle/docs/README.md]` header ensures that frontend developers follow the same architectural rules as backend engineers.
+
+---
+© 2026 LBRS Nepal. All rights reserved.

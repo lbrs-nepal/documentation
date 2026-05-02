@@ -1,29 +1,35 @@
-# LBRS Media Service — Project Status
+# LBRS Media — Global Asset Infrastructure
 
-The Media Service is currently being refactored from an action-oriented legacy system into a high-performance **Resource-Oriented Architecture**.
-
-## 🏗️ How it's shaping up:
-*   **Centralized Gateway**: Moving all asset delivery to a unified `gateway` module that handles both public and protected content. This uses a single entry point for all MinIO streaming, injecting security checks dynamically.
-*   **Metadata Integration**: Transitioning to a PostgreSQL-backed metadata system to allow for fuzzy searching and better relationship tracking. This eliminates the need for expensive MinIO listing operations.
-*   **Async Engine**: Implementing a robust processing engine using Go routines for automatic image optimization (Lanczos3) and video frame extraction (FFmpeg).
-*   **Tenant Isolation**: Enforcing a strict `{organization_id}/{media_type}/{id}` path convention to ensure zero cross-tenant data leakage.
-
-## 🌟 Key Features:
-*   **Zero-Trust Sanitization**: Server-side Magic Number detection ignoring client-side MIME headers.
-*   **45-Day Retention**: Automated "Safety Window" for soft-deletions before permanent physical removal.
-*   **Privacy-First**: Automatic EXIF metadata stripping from all uploaded images.
-*   **Unified Access**: A single interface for both Public and Protected (JWT-guarded) media.
-
-## 🚀 Current Focus:
-Implementing the `v1/manager` repository and the `v1/gateway` handler.
+The **Media Service** is the high-performance asset management hub for the LBRS ecosystem. It manages the ingestion, processing, and secure delivery of images, videos, and legal documents.
 
 ---
 
-## 📈 Feature & Progress Log
-| Date | Milestone | Status |
-| :--- | :--- | :--- |
-| 2026-04-30 | Initial Fragmented Media Service Analysis. | ✅ COMPLETED |
-| 2026-05-01 | Architectural Refactor Plan (Resource-Oriented) Approved. | ✅ COMPLETED |
-| 2026-05-01 | Database Metadata Schema (`media.assets`) Implemented. | ✅ COMPLETED |
-| 2026-05-01 | 45-Day Retention Policy & Triggers Designed. | ✅ COMPLETED |
-| 2026-05-02 | (Planned) MinIO/Postgres Connection Module Implementation. | ⏳ IN PROGRESS |
+## 📂 Directory & Setup
+The service follows a **Resource-Oriented Architecture** designed for high throughput and security.
+
+- **`/v1/manager`**: Handles asset ingestion, validation, and metadata persistence in PostgreSQL.
+- **`/v1/guard`**: Implements specialized JWT middleware for cross-origin media access control.
+- **`/v1/gateway`**: The streaming interface that delivers content from MinIO (S3) to the client.
+- **`/server`**: The entry point that orchestrates the Fiber application and MinIO connections.
+- **`@LBRS-Mapping-Audit`**: Ensures every asset-related change is architecturally tracked.
+
+---
+
+## ⚙️ How it Works
+1.  **Secure Ingestion**: Validates file signatures (Magic Numbers) and strips sensitive EXIF metadata before storage.
+2.  **Hybrid Metadata**: Stores file details (size, mime-type, org_id) in PostgreSQL to allow for fast searching without querying the object store.
+3.  **Monolithic Gateway**: A single delivery point (`media.npframe.com`) that dynamically determines if a file is Public or Protected based on the database state.
+4.  **MinIO Integration**: Interfaces with S3-compatible storage using a strictly namespaced path convention: `{organization_id}/{media_type}/{id}`.
+5.  **Soft Deletion**: Implements a 45-day retention window where files are marked as `deleted` in metadata before physical removal.
+
+---
+
+## 🏛️ Oracle Governance
+The Media service is governed by the **Asset Mappings** in Oracle:
+
+- **Metadata Sync**: Linked to the `media.assets` table via `oracle/schemas/media/assets/assets.yml`.
+- **Infrastructure Link**: The production and development URLs are strictly defined in `oracle/config/services.yml`.
+- **Atomic Operations**: Any change to how assets are classified or stored must be updated in the Oracle mapping to maintain full-stack traceability.
+
+---
+© 2026 LBRS Nepal. All rights reserved.
